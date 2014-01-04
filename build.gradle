@@ -4,23 +4,28 @@ apply plugin: "eclipse"
 apply plugin: 'eclipse-wtp'
 apply plugin: "java"
 apply plugin: 'war'
+apply plugin: 'jetty'
 
 repositories {
 	mavenLocal()
     mavenCentral()
 }
 
+// Jetty
+jettyRun.contextPath = '' 
+
 // WEB APP
-def springVersion = "3.2.4.RELEASE"
+def springVersion = "3.2.6.RELEASE"
 def springSecurityVersion = "3.2.0.RELEASE"
 def slf4jVersion = "1.6.4"
 def mockitoversion = "1.8.5"
 def aspectjVersion = "1.6.9"
+def thymeleafVersion = "2.1.2.RELEASE"
 
 sourceCompatibility = 1.6
 targetCompatibility = 1.6
 
-war.baseName = "simple-springmvc"
+war.baseName = "$name"
 war.version = version
 war.manifest { attributes("Implementation-Version": version) }
 war.manifest { attributes("WebApp-Implementation-Version": version) }
@@ -42,7 +47,8 @@ dependencies {
 	compile "org.springframework.security:spring-security-acl:$springSecurityVersion"
 	compile "org.springframework.security:spring-security-taglibs:$springSecurityVersion"
 	compile "org.springframework.security:spring-security-web:$springSecurityVersion"
-
+	compile "org.thymeleaf:thymeleaf-spring3:$thymeleafVersion"
+	
 	// test
 	testCompile "org.springframework:spring-test:$springVersion"
 	testCompile "junit:junit:4.11"
@@ -106,6 +112,7 @@ sourceSets {
 		resources {			srcDir 'src/test/resources'		}
 	}
 }
+
 
 
 
